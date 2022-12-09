@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "rootDir": ".",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "moduleResolution": "node",
     "allowJs": false,
     "esModuleInterop": true,
