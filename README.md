@@ -44,7 +44,69 @@ Generate routes error.
 }
 ```
 
+### vite を express アプリへ導入する
+
+vite と必要プラグインインストール
+
+```bash
+npm i vite vite-plugin-node
+```
+
+vite.config.ts を作成
+
+```ts
+import { defineConfig } from 'vite';
+import { VitePluginNode } from 'vite-plugin-node';
+
+export default defineConfig({
+  server: {
+    port: 3000,
+  },
+  resolve: {
+    alias: [{ find: '@', replacement: '/src' }],
+  },
+  plugins: [
+    ...VitePluginNode({
+      adapter: 'express',
+      appPath: './src/server.ts',
+    }),
+  ],
+});
+```
+
+`tsconfig.json` へもパスエイリアスを設定
+
+```json
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "outDir": "./build",
+    "@/*": ["src/*"]
+  }
+}
+```
+
+`package.json` へ npm スクリプト追加
+
+```json
+"scripts": {
+"start": "NODE_ENV=production node dist/server.js",
+"build": "tsoa spec-and-routes && tsc && vite build",
+"dev": "vite"
+}
+```
+
+エントリーポイントのファイルで listen しているところは本番環境以外はいらないので、分岐させる
+
+```ts
+if (process.env.NODE_ENV === 'production') {
+  app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+}
+```
+
 ## 参考文献
 
 - [軽量な Web フレームワーク tsoa を使って、OpenAPI と express ルーティングを自動生成する](https://zenn.dev/briete/articles/e556424c18e68d)
 - [tsoa 公式ドキュメント](https://tsoa-community.github.io/docs/)
+- [Vite を使って Express.js アプリを作る](https://scrapbox.io/dojineko/Vite%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6Express.js%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B)
