@@ -1,12 +1,20 @@
 {
-  "entryFile": "api.ts",
+  "entryFile": "./src/app.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
-  "controllerPathGlobs": ["controllers/**/*Controller.ts"],
+  "controllerPathGlobs": ["src/**/*Controller.ts"],
+  "routesDir": "./src",
   "spec": {
-    "outputDirectory": ".build",
+    "outputDirectory": "src",
     "specVersion": 3
   },
   "routes": {
-    "routesDir": ".build"
+    "routesDir": "."
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outputDirectory": "build",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }
