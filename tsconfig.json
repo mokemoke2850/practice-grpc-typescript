@@ -5,6 +5,7 @@
     "module": "commonjs",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
     "rootDir": ".",
     "baseUrl": ".",
     "outDir": "./build",

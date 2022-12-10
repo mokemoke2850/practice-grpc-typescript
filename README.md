@@ -105,6 +105,32 @@ if (process.env.NODE_ENV === 'production') {
 }
 ```
 
+### Swagger-UI-Express 導入
+
+ライブラリインストール
+
+```
+npm i swagger-ui-express
+npm i -D @types/swagger-ui-express
+```
+
+swagger.json をインポートするために tsconfig.json に以下を追記
+
+```json
+"compilerOptions": {
+    "resolveJsonModule": true,
+}
+```
+
+Swagger 用のルーティングを追加する
+
+```ts
+import swaggerUi from 'swagger-ui-express';
+import SwaggerDocument from '@/swagger.json';
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(SwaggerDocument));
+```
+
 ## 参考文献
 
 - [軽量な Web フレームワーク tsoa を使って、OpenAPI と express ルーティングを自動生成する](https://zenn.dev/briete/articles/e556424c18e68d)
