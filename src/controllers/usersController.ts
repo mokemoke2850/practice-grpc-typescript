@@ -9,8 +9,8 @@ import {
   SuccessResponse,
   Tags,
 } from 'tsoa';
-import { User } from 'entities/User';
-import { UserCreationParams, UsersService } from 'services/usersService';
+import { User } from '../entities/User';
+import { UserCreationParams, UsersService } from '../services/usersService';
 
 @Route('users')
 @Tags('user')

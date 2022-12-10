@@ -1,5 +1,5 @@
 import express, { json, urlencoded } from 'express';
-// import { RegisterRoutes } from '../build/routes';
+import { RegisterRoutes } from './routes';
 
 export const app = express();
 
@@ -10,4 +10,4 @@ app.use(
 );
 app.use(json());
 
-// RegisterRoutes(app);
+RegisterRoutes(app);
