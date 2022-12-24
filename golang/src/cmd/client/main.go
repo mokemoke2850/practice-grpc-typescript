@@ -14,7 +14,7 @@ import (
 
 var (
 	scanner *bufio.Scanner
-	client  hellopb.GreetignServiceClient
+	client  hellopb.GreetingServiceClient
 )
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 	defer conn.Close()
 
 	// generate gRPC client
-	client = hellopb.NewGreetignServiceClient(conn)
+	client = hellopb.NewGreetingServiceClient(conn)
 
 	for {
 		fmt.Println("1: send Request")

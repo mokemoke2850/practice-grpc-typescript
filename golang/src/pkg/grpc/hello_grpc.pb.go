@@ -18,38 +18,38 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// GreetignServiceClient is the client API for GreetignService service.
+// GreetingServiceClient is the client API for GreetingService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type GreetignServiceClient interface {
+type GreetingServiceClient interface {
 	Hello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
 	// server streaming gRPC
-	HelloServerStream(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (GreetignService_HelloServerStreamClient, error)
+	HelloServerStream(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (GreetingService_HelloServerStreamClient, error)
 }
 
-type greetignServiceClient struct {
+type greetingServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewGreetignServiceClient(cc grpc.ClientConnInterface) GreetignServiceClient {
-	return &greetignServiceClient{cc}
+func NewGreetingServiceClient(cc grpc.ClientConnInterface) GreetingServiceClient {
+	return &greetingServiceClient{cc}
 }
 
-func (c *greetignServiceClient) Hello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
+func (c *greetingServiceClient) Hello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
 	out := new(HelloResponse)
-	err := c.cc.Invoke(ctx, "/myapp.GreetignService/Hello", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/myapp.GreetingService/Hello", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *greetignServiceClient) HelloServerStream(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (GreetignService_HelloServerStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &GreetignService_ServiceDesc.Streams[0], "/myapp.GreetignService/HelloServerStream", opts...)
+func (c *greetingServiceClient) HelloServerStream(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (GreetingService_HelloServerStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &GreetingService_ServiceDesc.Streams[0], "/myapp.GreetingService/HelloServerStream", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &greetignServiceHelloServerStreamClient{stream}
+	x := &greetingServiceHelloServerStreamClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -59,16 +59,16 @@ func (c *greetignServiceClient) HelloServerStream(ctx context.Context, in *Hello
 	return x, nil
 }
 
-type GreetignService_HelloServerStreamClient interface {
+type GreetingService_HelloServerStreamClient interface {
 	Recv() (*HelloResponse, error)
 	grpc.ClientStream
 }
 
-type greetignServiceHelloServerStreamClient struct {
+type greetingServiceHelloServerStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *greetignServiceHelloServerStreamClient) Recv() (*HelloResponse, error) {
+func (x *greetingServiceHelloServerStreamClient) Recv() (*HelloResponse, error) {
 	m := new(HelloResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -76,94 +76,94 @@ func (x *greetignServiceHelloServerStreamClient) Recv() (*HelloResponse, error) 
 	return m, nil
 }
 
-// GreetignServiceServer is the server API for GreetignService service.
-// All implementations must embed UnimplementedGreetignServiceServer
+// GreetingServiceServer is the server API for GreetingService service.
+// All implementations must embed UnimplementedGreetingServiceServer
 // for forward compatibility
-type GreetignServiceServer interface {
+type GreetingServiceServer interface {
 	Hello(context.Context, *HelloRequest) (*HelloResponse, error)
 	// server streaming gRPC
-	HelloServerStream(*HelloRequest, GreetignService_HelloServerStreamServer) error
-	mustEmbedUnimplementedGreetignServiceServer()
+	HelloServerStream(*HelloRequest, GreetingService_HelloServerStreamServer) error
+	mustEmbedUnimplementedGreetingServiceServer()
 }
 
-// UnimplementedGreetignServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedGreetignServiceServer struct {
+// UnimplementedGreetingServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedGreetingServiceServer struct {
 }
 
-func (UnimplementedGreetignServiceServer) Hello(context.Context, *HelloRequest) (*HelloResponse, error) {
+func (UnimplementedGreetingServiceServer) Hello(context.Context, *HelloRequest) (*HelloResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Hello not implemented")
 }
-func (UnimplementedGreetignServiceServer) HelloServerStream(*HelloRequest, GreetignService_HelloServerStreamServer) error {
+func (UnimplementedGreetingServiceServer) HelloServerStream(*HelloRequest, GreetingService_HelloServerStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method HelloServerStream not implemented")
 }
-func (UnimplementedGreetignServiceServer) mustEmbedUnimplementedGreetignServiceServer() {}
+func (UnimplementedGreetingServiceServer) mustEmbedUnimplementedGreetingServiceServer() {}
 
-// UnsafeGreetignServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to GreetignServiceServer will
+// UnsafeGreetingServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to GreetingServiceServer will
 // result in compilation errors.
-type UnsafeGreetignServiceServer interface {
-	mustEmbedUnimplementedGreetignServiceServer()
+type UnsafeGreetingServiceServer interface {
+	mustEmbedUnimplementedGreetingServiceServer()
 }
 
-func RegisterGreetignServiceServer(s grpc.ServiceRegistrar, srv GreetignServiceServer) {
-	s.RegisterService(&GreetignService_ServiceDesc, srv)
+func RegisterGreetingServiceServer(s grpc.ServiceRegistrar, srv GreetingServiceServer) {
+	s.RegisterService(&GreetingService_ServiceDesc, srv)
 }
 
-func _GreetignService_Hello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _GreetingService_Hello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HelloRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreetignServiceServer).Hello(ctx, in)
+		return srv.(GreetingServiceServer).Hello(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/myapp.GreetignService/Hello",
+		FullMethod: "/myapp.GreetingService/Hello",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreetignServiceServer).Hello(ctx, req.(*HelloRequest))
+		return srv.(GreetingServiceServer).Hello(ctx, req.(*HelloRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _GreetignService_HelloServerStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _GreetingService_HelloServerStream_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(HelloRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(GreetignServiceServer).HelloServerStream(m, &greetignServiceHelloServerStreamServer{stream})
+	return srv.(GreetingServiceServer).HelloServerStream(m, &greetingServiceHelloServerStreamServer{stream})
 }
 
-type GreetignService_HelloServerStreamServer interface {
+type GreetingService_HelloServerStreamServer interface {
 	Send(*HelloResponse) error
 	grpc.ServerStream
 }
 
-type greetignServiceHelloServerStreamServer struct {
+type greetingServiceHelloServerStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *greetignServiceHelloServerStreamServer) Send(m *HelloResponse) error {
+func (x *greetingServiceHelloServerStreamServer) Send(m *HelloResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-// GreetignService_ServiceDesc is the grpc.ServiceDesc for GreetignService service.
+// GreetingService_ServiceDesc is the grpc.ServiceDesc for GreetingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var GreetignService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "myapp.GreetignService",
-	HandlerType: (*GreetignServiceServer)(nil),
+var GreetingService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "myapp.GreetingService",
+	HandlerType: (*GreetingServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Hello",
-			Handler:    _GreetignService_Hello_Handler,
+			Handler:    _GreetingService_Hello_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "HelloServerStream",
-			Handler:       _GreetignService_HelloServerStream_Handler,
+			Handler:       _GreetingService_HelloServerStream_Handler,
 			ServerStreams: true,
 		},
 	},

@@ -4,7 +4,7 @@ option go_package = "pkg/grpc";
 
 package myapp;
 
-service GreetignService {
+service GreetingService {
     rpc Hello (HelloRequest) returns (HelloResponse);
     // server streaming gRPC
     rpc HelloServerStream (HelloRequest) returns (stream HelloResponse);
