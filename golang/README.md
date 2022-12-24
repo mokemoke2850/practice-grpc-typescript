@@ -28,3 +28,11 @@ protoc-gen-go を実行できるようにパス追加
 ```bash
 export PATH="$PATH:$(go env GOPATH)/bin"
 ```
+
+### ubuntu に grpcurl インストール
+
+brew にしかないっぽいので、go でインストールしました。
+
+```bash
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+```
