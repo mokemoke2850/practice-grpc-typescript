@@ -131,8 +131,28 @@ import SwaggerDocument from '@/swagger.json';
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(SwaggerDocument));
 ```
 
+### gRPC for Typescript について
+
+Node.js で gRPC を実装する際には [grpc-node](https://github.com/grpc/grpc-node) というライブラリが公式から出されている。
+
+Typescript の gRPC 用ライブラリとして以下の 2 つがある
+
+- (grpc_tools_node_protoc_ts)[https://github.com/agreatfool/grpc_tools_node_protoc_ts]
+- (ts-protoc-gen)[https://github.com/improbable-eng/ts-protoc-gen]
+
+#### gRPC 導入
+
+```bash
+npm i -D grpc-tools grpc_tools_node_protoc_ts
+npm i @grpc/grpc-js google-protobuf
+```
+
 ## 参考文献
 
 - [軽量な Web フレームワーク tsoa を使って、OpenAPI と express ルーティングを自動生成する](https://zenn.dev/briete/articles/e556424c18e68d)
 - [tsoa 公式ドキュメント](https://tsoa-community.github.io/docs/)
 - [Vite を使って Express.js アプリを作る](https://scrapbox.io/dojineko/Vite%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6Express.js%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B)
+- [Node.js + TypeScript で gRPC に入門する [前編: gRPC とは]](https://qiita.com/hedrall/items/038a2b29d27dd631be8a)
+- [Protocol Buffers から TypeScript の型定義を作る](https://zenn.dev/ryo_kawamata/articles/ts-from-protocol-buffers)
+- [作ってわかる！ はじめての gRPC](https://zenn.dev/hsaki/books/golang-grpc-starting)
+  - [学習履歴](./golang)
