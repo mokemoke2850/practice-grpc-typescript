@@ -6,6 +6,8 @@ package myapp;
 
 service GreetignService {
     rpc Hello (HelloRequest) returns (HelloResponse);
+    // server streaming gRPC
+    rpc HelloServerStream (HelloRequest) returns (stream HelloResponse);
 }
 
 message HelloRequest {
