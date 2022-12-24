@@ -154,3 +154,5 @@ npm i @grpc/grpc-js google-protobuf
 - [Vite を使って Express.js アプリを作る](https://scrapbox.io/dojineko/Vite%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6Express.js%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B)
 - [Node.js + TypeScript で gRPC に入門する [前編: gRPC とは]](https://qiita.com/hedrall/items/038a2b29d27dd631be8a)
 - [Protocol Buffers から TypeScript の型定義を作る](https://zenn.dev/ryo_kawamata/articles/ts-from-protocol-buffers)
+- [作ってわかる！ はじめての gRPC](https://zenn.dev/hsaki/books/golang-grpc-starting)
+  - [学習履歴](./golang)
