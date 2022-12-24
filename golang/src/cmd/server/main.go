@@ -11,6 +11,7 @@ import (
 	hellopb "mygrpc/pkg/grpc"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type myServer struct {
@@ -41,6 +42,9 @@ func main() {
 
 	// regist GreetingService to gRPC server
 	hellopb.RegisterGreetignServiceServer(s, NewMyServer())
+
+	// setting server reflection
+	reflection.Register(s)
 
 	// start the server on 8080 port
 	go func() {
