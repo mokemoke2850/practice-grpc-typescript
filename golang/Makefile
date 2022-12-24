@@ -9,10 +9,10 @@ generate-grpc: ## generate gRPC code
 	*.proto
 start-server: ## start gRPC server
 	cd src/cmd/server && \
-	go run main.go
+	go run *.go
 start-client: ## start gRPC client
 	cd src/cmd/client && \
-	go run main.go
+	go run *.go
 start-all: ## start gRPC server and client
 	make start-server & \
 	make start-client

@@ -98,7 +98,16 @@ func main() {
 	}
 
 	// create gRPC server instance
-	s := grpc.NewServer()
+	s := grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			myUnaryServerInterceptor1,
+			myUnaryServerInterceptor2,
+		),
+		grpc.ChainStreamInterceptor(
+			myStreamServerInterceptor1,
+			myStreamServerInterceptor2,
+		),
+	)
 
 	// regist GreetingService to gRPC server
 	hellopb.RegisterGreetingServiceServer(s, NewMyServer())

@@ -36,3 +36,9 @@ brew にしかないっぽいので、go でインストールしました。
 ```bash
 go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
 ```
+
+### undefined: myUnaryServerInterceptor1 となり、関数を呼べない
+
+`go run main.go` では main.go しか読み込んでくれない。
+
+`go run main.go unaryIntercepror.go` または　`go run *.go` にする
