@@ -16,8 +16,8 @@ start-client: ## start gRPC client
 start-all: ## start gRPC server and client
 	make start-server & \
 	make start-client
-	ps aux | grep -E "make start-server$$" | awk '{print $$2}' | xargs kill 
-	ps aux | grep -E "/exe/main$$" | awk '{print $$2}' | xargs kill
+	@ps aux | grep -E "make start-server$$" | awk '{print $$2}' | xargs kill 
+	@ps aux | grep -E "/exe/main$$" | awk '{print $$2}' | xargs kill
 	
 help: ## Show options
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \

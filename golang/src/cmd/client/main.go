@@ -12,6 +12,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 )
 
 var (
@@ -45,7 +46,8 @@ func main() {
 		fmt.Println("1: send Request")
 		fmt.Println("2: HelloServerStream")
 		fmt.Println("3: HelloClientStream")
-		fmt.Println("4: exit")
+		fmt.Println("4: HelloBiStream")
+		fmt.Println("5: exit")
 		fmt.Print("Please enter >")
 
 		scanner.Scan()
@@ -59,6 +61,8 @@ func main() {
 		case "3":
 			HelloClientStream()
 		case "4":
+			HelloBiStreams()
+		case "5":
 			fmt.Println("bye.")
 			goto M
 		}
@@ -139,5 +143,69 @@ func HelloClientStream() {
 		fmt.Println(err)
 	} else {
 		fmt.Println(res.GetMessage())
+	}
+}
+
+func HelloBiStreams() {
+	ctx := context.Background()
+	md := metadata.New(map[string]string{"type": "stream", "from": "client"})
+	ctx = metadata.NewOutgoingContext(ctx, md)
+
+	stream, err := client.HelloBiStreams(ctx)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	sendNum := 5
+	fmt.Printf("Please enter %d names.\n", sendNum)
+
+	var sendEnd, recvEnd bool
+	sendCount := 0
+	for !(sendEnd && recvEnd) {
+		// sending message logic
+		if !sendEnd {
+			scanner.Scan()
+			name := scanner.Text()
+
+			sendCount++
+			if err := stream.Send(&hellopb.HelloRequest{
+				Name: name,
+			}); err != nil {
+				fmt.Println(err)
+				sendEnd = true
+			}
+
+			if sendCount == sendNum {
+				sendEnd = true
+				if err := stream.CloseSend(); err != nil {
+					fmt.Println(err)
+				}
+			}
+		}
+
+		// receiving message logic
+		// var headerMD metadata.MD
+		if !recvEnd {
+			// if headerMD == nil {
+			// 	headerMD, err := stream.Header()
+			// 	if err != nil {
+			// 		fmt.Println(err)
+			// 	} else {
+			// 		fmt.Println(headerMD)
+			// 	}
+			// }
+			if res, err := stream.Recv(); err != nil {
+				if !errors.Is(err, io.EOF) {
+					fmt.Println(err)
+				}
+				recvEnd = true
+			} else {
+				fmt.Println(res.GetMessage())
+			}
+		}
+
+		// trailerMD := stream.Trailer()
+		// fmt.Println(trailerMD)
 	}
 }
