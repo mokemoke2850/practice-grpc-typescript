@@ -1,7 +1,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var sample_pb = require('./sample_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 var google_protobuf_duration_pb = require('google-protobuf/google/protobuf/duration_pb.js');
@@ -45,7 +45,7 @@ var SampleServiceService = exports.SampleServiceService = {
 sampleServerStreamMethod: {
     path: '/sample.SampleService/SampleServerStreamMethod',
     requestStream: false,
-    responseStream: false,
+    responseStream: true,
     requestType: sample_pb.SampleRequest,
     responseType: sample_pb.SampleResponse,
     requestSerialize: serialize_sample_SampleRequest,

@@ -8,7 +8,7 @@ import "google/protobuf/duration.proto";
 service SampleService {
     rpc Sample (SampleRequest) returns (SampleResponse);
     // server streaming
-    rpc SampleServerStreamMethod (SampleRequest) returns (SampleResponse);
+    rpc SampleServerStreamMethod (SampleRequest) returns (stream SampleResponse);
     // client streaming 
     rpc SampleClientStreamMethod (stream SampleRequest) returns (SampleResponse);
     // bi streaming
