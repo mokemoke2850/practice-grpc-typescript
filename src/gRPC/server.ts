@@ -1,6 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
-import * as sample_pb from '@/proto/sample_pb';
-import * as sample_grpc_pb from '@/proto/sample_grpc_pb';
+import * as sample_pb from '../proto/sample_pb';
+import * as sample_grpc_pb from '../proto/sample_grpc_pb';
 import {
   sampleBiStreamService,
   sampleClientStreamService,
@@ -46,7 +46,7 @@ const main = () => {
   );
 
   server.bindAsync(
-    `0,0,0,0:${gRPC_PORT}`,
+    `0.0.0.0:${gRPC_PORT}`,
     grpc.ServerCredentials.createInsecure(),
     (error, port) => {
       if (error) {
