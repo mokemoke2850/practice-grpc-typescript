@@ -140,7 +140,11 @@ Typescript の gRPC 用ライブラリとして以下の 2 つがある
 - (grpc_tools_node_protoc_ts)[https://github.com/agreatfool/grpc_tools_node_protoc_ts]
 - (ts-protoc-gen)[https://github.com/improbable-eng/ts-protoc-gen]
 
-#### gRPC 導入
+自動生成されるファイルは `import * as grpc from 'grpc'` となっているが、正しくは `import * as grpc from @grpc-js` にする必要がある。
+
+または、コード自動生成時のオプションで `--grpc_out=grpc_js:${PROTO_DEST}` と `--ts_out=grpc_js:${PROTO_DEST}` でも対応可能。
+
+### gRPC 導入
 
 ```bash
 npm i -D grpc-tools grpc_tools_node_protoc_ts
