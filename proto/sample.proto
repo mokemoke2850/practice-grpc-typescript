@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package sample;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+service SampleService {
+    rpc Sample (SampleRequest) returns (SampleResponse);
+    // server streaming
+    rpc SampleServerStreamMethod (SampleRequest) returns (stream SampleResponse);
+    // client streaming 
+    rpc SampleClientStreamMethod (stream SampleRequest) returns (SampleResponse);
+    // bi streaming
+    rpc SampleBidrectionalMethod (stream SampleRequest) returns (stream SampleResponse);
+}
+
+message SampleRequest {
+    string name = 1;
+}
+
+message SampleResponse {
+    Sample sample = 1;
+}
+
+message Sample {
+    int32 id = 1;
+    string name = 2;
+    bool isBool = 3;
+
+    string dublicated_field = 4 [deprecated = true];
+    
+    reserved 7,8, 10 to 12;
+    
+    // cannot define multidimentsional array
+    // repeated SampleList sample_list = 5;
+    
+    map<string, string> sample_map = 6;
+    
+    
+    google.protobuf.Duration sample_duration = 9;
+    google.protobuf.Timestamp create_time = 13;
+
+    oneof message {
+        string one = 14;
+        string other = 15;
+    }
+    
+    enum SampleEnum {
+        UNKNOWN = 0;
+        TEST1 = 1;
+        TEST2 = 2;
+        TEST3 = 3;
+    }
+}
